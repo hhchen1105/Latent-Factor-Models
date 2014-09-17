@@ -643,21 +643,22 @@ MCEM_EStep.multicontext.C <- function(
 	
 	ans = .C("MCEM_EStep_multicontext",
     	# INPUT (initial factor values) & OUTPUT (Monte Carlo mean of factor values)
-    	factor$alpha, factor$beta, factor$gamma, factor$u, factor$v, factor$w,
+    	factor$alpha, factor$beta, as.double(factor$gamma), factor$u, factor$v, factor$w,
         # OUTPUT
     	factor$alpha_global, factor$beta_global, factor$fScore, sampvar$fScore,
     	sampvar$alpha, sampvar$alpha_global, sampcov$alpha,
     	sampvar$beta,  sampvar$beta_global,  sampcov$beta,
-		sampvar$gamma, sampvar$u, sampvar$v, sampvar$w,
-		test.fScore$mean, test.fScore$var,
+		as.double(sampvar$gamma), sampvar$u, sampvar$v, sampvar$w,
+		as.double(test.fScore$mean), as.double(test.fScore$var),
     	# INPUT
     	as.integer(nSamples), as.integer(nBurnIn),
     	obs$src.id, obs$dst.id, obs$src.context, obs$dst.context, obs$edge.context,
     	param[["q"]], param[["r"]],
-    	obs.y, x_src.g0, x_dst.d0, x_ctx.h0, x_src.G, x_dst.D, x_ctx.H,
+    	obs.y, x_src.g0, x_dst.d0, as.double(x_ctx.h0), x_src.G, x_dst.D, x_ctx.H,
     	param$var_y, param$var_alpha, param$var_alpha_global, param$var_beta, param$var_beta_global, 
-		param$var_gamma, param$var_u, param$var_v, var_w,
-		test.obs$src.id, test.obs$dst.id, test.obs$src.context, test.obs$dst.context, test.obs$edge.context,
+		as.double(param$var_gamma), param$var_u, param$var_v, var_w,
+		as.integer(test.obs$src.id), as.integer(test.obs$dst.id),
+        as.integer(test.obs$src.context), as.integer(test.obs$dst.context), as.integer(test.obs$edge.context),
 		dim, as.integer(length(dim)),
     	# OTHER
     	as.integer(debug), as.integer(verbose),
